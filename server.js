@@ -8,7 +8,7 @@ var slack = new Slack(slackApiToken);
 
 // Setup users you want to invite the created channel
 // Find user ID:s here https://api.slack.com/methods/users.list/test
-var supportUserIds = ['U0AL3FV6U'];
+var supportUserIds = ['U0349MNN2', 'U0353TWJ4', 'U0L3YE7JQ'];
 
 // Setup Express
 var app = express();
@@ -34,36 +34,36 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Query messages
-app.get('/channel/:id/messages', function(req, res, next) {
-  if( req.params.id ) {
-    slack.api('channels.history', {
-      channel: req.params.id,
-      oldest: req.query.oldest
-    }, function(err, response) {
-      res.send(response);
-    });
-  } else {
-    res.send({ error : 'Data missing'});
-  }
-});
+// // Query messages
+// app.get('/channel/:id/messages', function(req, res, next) {
+//   if( req.params.id ) {
+//     slack.api('channels.history', {
+//       channel: req.params.id,
+//       oldest: req.query.oldest
+//     }, function(err, response) {
+//       res.send(response);
+//     });
+//   } else {
+//     res.send({ error : 'Data missing'});
+//   }
+// });
 
-// Create channel
-app.post('/channels', function(req, res, next) {
-  slack.api('channels.create', {
-    name: req.body.channel
-  }, function(err, response) {
-    res.send(response);
+// // Create channel
+// app.post('/channels', function(req, res, next) {
+//   slack.api('channels.create', {
+//     name: req.body.channel
+//   }, function(err, response) {
+//     res.send(response);
 
-    // Invite extra users
-    supportUserIds.forEach(function(userid) {
-      slack.api('channels.invite', {
-        channel: response.channel.id,
-        user: userid
-      });
-    });
-  });
-});
+//     // Invite extra users
+//     supportUserIds.forEach(function(userid) {
+//       slack.api('channels.invite', {
+//         channel: response.channel.id,
+//         user: userid
+//       });
+//     });
+//   });
+// });
 
 // Send message
 app.post('/message', function(req, res, next) {
@@ -78,9 +78,4 @@ app.post('/message', function(req, res, next) {
   } else{
     res.send({ error : 'Data missing'});
   }
-});
-
-// Test that the server is working.
-app.get('/', function(request, response) {
-  response.render('pages/index');
 });
