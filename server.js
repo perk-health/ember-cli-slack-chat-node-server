@@ -12,6 +12,8 @@ var supportUserIds = ['U0AL3FV6U'];
 
 // Setup Express
 var app = express();
+app.set('port', (process.env.PORT || 1337))
+
 var server = app.listen( 1337, function() {
   console.log('Express listening at http://%s:%s', server.address().address, server.address().port);
 });
@@ -72,4 +74,9 @@ app.post('/message', function(req, res, next) {
   } else{
     res.send({ error : 'Data missing'});
   }
+});
+
+// Test that the server is working.
+app.get('/', function(request, response) {
+  response.render('pages/index');
 });
