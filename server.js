@@ -18,7 +18,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-var server = app.listen( 1337, function() {
+var server = app.listen( app.get('port'), function() {
   console.log('Express listening at http://%s:%s', server.address().address, server.address().port);
 });
 
