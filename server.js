@@ -3,12 +3,12 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 // Setup Slack API
-var slackApiToken = process.env.SLACK_API_TOKEN || 'your Slack API token here';
+var slackApiToken = process.env.SLACK_API_TOKEN;
 var slack = new Slack(slackApiToken);
 
 // Setup users you want to invite the created channel
 // Find user ID:s here https://api.slack.com/methods/users.list/test
-var supportUserIds = ['U02UXACCS','U02A60UCV'];
+var supportUserIds = ['U0AL3FV6U'];
 
 // Setup Express
 var app = express();
