@@ -67,15 +67,24 @@ app.use(function(req, res, next) {
 
 // Send message
 app.post('/message', function(req, res, next) {
+  // console.log(req.body);
+  // res.status(200).send({successful : true});
+  // res.status(422).send({ error : 'Data missing'});
   if( req.body.message && req.body.channel ){
     slack.api('chat.postMessage', {
       text:req.body.message,
       channel: req.body.channel,
-      attachments: req.body.attachments
+      attachments: req.body.attachments,
+      username: req.body.username,
+      icon_url: req.body.icon_url
     }, function(err, postMessageResponse){
-      res.send(postMessageResponse);
+      if (err) {
+        res.status(422).send({ error : err, response : postMessageResponse});
+      } else {
+        res.status(200).send(postMessageResponse);
+      }
     });
   } else{
-    res.send({ error : 'Data missing'});
+    res.status(422).send({ error : 'Data missing'});
   }
 });
