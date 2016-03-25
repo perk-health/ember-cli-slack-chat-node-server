@@ -76,7 +76,7 @@ app.post('/message', function(req, res, next) {
       channel: req.body.channel,
       attachments: req.body.attachments,
       username: req.body.username,
-      icon_url: req.body.icon_url
+      icon_url: req.body.iconUrl
     }, function(err, postMessageResponse){
       if (err) {
         res.status(422).send({ error : err, response : postMessageResponse});
